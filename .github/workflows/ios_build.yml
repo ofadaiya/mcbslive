@@ -1,4 +1,4 @@
-ame: Build iOS App
+name: Build iOS App
 
 on:
   workflow_dispatch:
@@ -19,3 +19,11 @@ jobs:
 
       - name: Build iOS
         run: |
+          flutter build ios --release --no-codesign
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build
+          path: build/ios/iphoneos/Runner.app
+
