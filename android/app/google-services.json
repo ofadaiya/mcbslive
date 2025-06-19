@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "998337608336",
+    "project_id": "mcbsradio",
+    "storage_bucket": "mcbsradio.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:998337608336:android:7d0898f072238c9d6bb615",
+        "android_client_info": {
+          "package_name": "com.necasoft.mcbslive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "998337608336-gnlqookf18tstqkavjgbv5rs7fjdt5c6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.necasoft.mcbslive",
+            "certificate_hash": "04f5cf1bec8686bb5c0a432f2b56a6d5b4116d07"
+          }
+        },
+        {
+          "client_id": "998337608336-4bn1f4p5pocbveouo37aeu37i99437jh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9o4gBagR4ngIm7biJz84_DSiPj4nrlOQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "998337608336-4bn1f4p5pocbveouo37aeu37i99437jh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "998337608336-7dvgckendd0m09tfh4emfbnd8g39o7f9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.necasoft.mcbslive"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
