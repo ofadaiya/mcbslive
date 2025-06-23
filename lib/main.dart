@@ -7,7 +7,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
-import 'package:yourappname/firebase_options.dart';
+import 'firebase_options.dart';
 import 'package:yourappname/music/musicdetails.dart';
 import 'package:yourappname/provider/addfavouriteprovider.dart';
 import 'package:yourappname/provider/liveeventsprovider.dart';
