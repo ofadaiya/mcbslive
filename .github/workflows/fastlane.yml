@@ -1,0 +1,15 @@
+# Install fastlane for code signing
+- name: Install Fastlane
+  run: |
+    gem install fastlane
+
+# Set up fastlane environment variables from GitHub secrets (you need to store your certs in GitHub secrets)
+- name: Setup Fastlane for Code Signing
+  run: |
+    echo "$CERTIFICATE" > certificate.p12
+    echo "$PROVISIONING_PROFILE" > profile.mobileprovision
+    fastlane match development --type ios --readonly # Use for automatic provisioning
+
+# Continue with the build step
+- name: Build iOS app
+  run: flutter build ios --release --no-codesign
