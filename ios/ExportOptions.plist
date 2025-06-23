@@ -1,13 +1,23 @@
+
+
 <?xml version="1.0" encoding="UTF-8"?>
 <plist version="1.0">
   <dict>
     <key>method</key>
-    <string>app-store</string>
-    <key>uploadSymbols</key>
-    <true/>
+    <string>app-development</string> <!-- or ad-hoc, enterprise, development depending on your use case -->
     <key>teamID</key>
-    <string>CW3CBV8SF4</string>
+    <string>CW3CBV8SF4</string> <!-- Optional if you have multiple teams -->
+    <key>compileBitcode</key>
+    <true/> <!-- set to false if you don't need bitcode -->
     <key>signingStyle</key>
-    <string>automatic</string>
+    <string>manual</string>
+    <key>signingCertificate</key>
+    <string>iOS Distribution</string>
+    <key>provisioningProfiles</key>
+    <dict>
+      <key>com.necasoft.mcbslive</key> <!-- Replace with your Bundle Identifier -->
+      <string>sigh_com.necasoft.mcbslive_appstore</string> <!-- Replace with the correct provisioning profile name -->
+    </dict>
   </dict>
 </plist>
+
