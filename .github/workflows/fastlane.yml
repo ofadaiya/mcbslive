@@ -1,15 +1,45 @@
-# Install fastlane for code signing
-- name: Install Fastlane
-  run: |
-    gem install fastlane
+name: Fastlane iOS App
 
-# Set up fastlane environment variables from GitHub secrets (you need to store your certs in GitHub secrets)
-- name: Setup Fastlane for Code Signing
-  run: |
-    echo "$CERTIFICATE" > certificate.p12
-    echo "$PROVISIONING_PROFILE" > profile.mobileprovision
-    fastlane match development --type ios --readonly # Use for automatic provisioning
+on:
+  workflow_dispatch:
 
-# Continue with the build step
-- name: Build iOS app
-  run: flutter build ios --release --no-codesign
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.32.4"
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build iOS
+        run: |
+          flutter build ios --release --no-codesign
+
+        
+      - name: Archive iOS App
+        run: |
+           cd ios
+              xcodebuild -workspace Runner.xcworkspace -scheme Runner -configuration Release -archivePath $PWD/build/Runner.xcarchive archive
+        
+      - name: Export IPA
+        run: |
+            xcodebuild -exportArchive -archivePath $PWD/build/Runner.xcarchive -exportOptionsPlist ios/ExportOptions.plist -exportPath $PWD/build/ipa
+        
+      - name: Upload IPA as an artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: app.ipa
+          path: $PWD/build/ipa/Runner.ipa
+    
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build
+          path: build/ios/iphoneos/Runner.app
