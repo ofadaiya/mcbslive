@@ -21,25 +21,23 @@ jobs:
         run: |
           flutter build ios --release --no-codesign
 
-        
       - name: Archive iOS App
         run: |
-           cd ios
-              xcodebuild -workspace Runner.xcworkspace -scheme Runner -configuration Release -archivePath $PWD/build/Runner.xcarchive archive
-        
+          cd ios
+          xcodebuild -workspace Runner.xcworkspace -scheme Runner -configuration Release -archivePath $PWD/build/Runner.xcarchive archive
+
       - name: Export IPA
         run: |
-            xcodebuild -exportArchive -archivePath $PWD/build/Runner.xcarchive -exportOptionsPlist ios/ExportOptions.plist -exportPath $PWD/build/ipa
-        
+          xcodebuild -exportArchive -archivePath $PWD/build/Runner.xcarchive -exportOptionsPlist ios/ExportOptions.plist -exportPath $PWD/build/ipa
+
       - name: Upload IPA as an artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app.ipa
+          name: app-ipa
           path: $PWD/build/ipa/Runner.ipa
-    
 
-      - name: Upload artifacts
+      - name: Upload .app as an artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ios-build
-          path: build/ios/iphoneos/Runner.app
+          name: ios-app
+          path: $PWD/build/ios/iphoneos/Runner.app
