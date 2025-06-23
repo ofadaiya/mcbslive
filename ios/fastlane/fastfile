@@ -1,0 +1,32 @@
+name: Fastlane iOS App Deployment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.32.4"
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Install Fastlane
+        run: |
+          sudo gem install fastlane -NV
+
+      - name: Build and Deploy with Fastlane
+        env:
+          FASTLANE_APPLE_ID: ${{ secrets.FASTLANE_APPLE_ID }}
+          FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        run: |
+          cd ios
+          fastlane ios release
