@@ -1,0 +1,56 @@
+name: Fastlane iOS TestFlight
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-upload:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.32.4"
+
+      - name: Install Flutter dependencies
+        run: flutter pub get
+
+      - name: Build iOS (no code signing)
+        run: flutter build ios --release --no-codesign
+
+      - name: Install CocoaPods
+        run: |
+          sudo gem install cocoapods
+          cd ios && pod install
+
+      - name: Install Fastlane
+        run: sudo gem install fastlane -NV
+
+      - name: Archive iOS App
+        run: |
+          cd ios
+          xcodebuild -workspace Runner.xcworkspace \
+            -scheme Runner \
+            -configuration Release \
+            -archivePath ../build/Runner.xcarchive \
+            archive -allowProvisioningUpdates
+
+      - name: Export IPA
+        run: |
+          xcodebuild -exportArchive \
+            -archivePath build/Runner.xcarchive \
+            -exportOptionsPlist ios/ExportOptions.plist \
+            -exportPath build/ipa
+
+      - name: Upload to TestFlight
+        run: |
+          cd ios
+          fastlane pilot upload \
+            --username "${{ secrets.APPLE_ID }}" \
+            --app_identifier "${{ secrets.BUNDLE_ID }}" \
+            --team_id "${{ secrets.APP_STORE_TEAM_ID }}" \
+            --ipa ../build/ipa/Runner.ipa
