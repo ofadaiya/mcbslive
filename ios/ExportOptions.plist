@@ -1,31 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" 
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-  <dict>
-    <!-- Method of export, adjust depending on your use case -->
-    <key>method</key>
-    <string>app-store</string> <!-- Use app-store for App Store distribution -->
-
-    <!-- Optional: Fill in if you have multiple Apple Developer teams -->
-    <key>teamID</key>
-    <string>CW3CBV8SF4</string> <!-- Replace with your Team ID -->
-
-    <!-- Set to true if you want bitcode enabled -->
-    <key>compileBitcode</key>
-    <true/> <!-- set to false if you don't need bitcode -->
-
-    <!-- Signing style (manual for this case) -->
-    <key>signingStyle</key>
-    <string>manual</string>
-
-    <!-- Signing certificate (use "iOS Distribution" for App Store) -->
-    <key>signingCertificate</key>
-    <string>iOS Distribution</string>
-
-    <!-- Provisioning profiles: Key = Bundle Identifier, Value = Provisioning Profile Name -->
-    <key>provisioningProfiles</key>
-    <dict>
-      <key>com.necasoft.mcbslive</key> <!-- Replace with your Bundle Identifier -->
-      <string>sigh_com.necasoft.mcbslive_appstore</string> <!-- Replace with the correct profile name -->
-    </dict>
-  </dict>
+<dict>
+  <key>method</key>
+  <string>app-store</string>
+  <key>uploadBitcode</key>
+  <false/>
+  <key>uploadSymbols</key>
+  <true/>
+  <key>compileBitcode</key>
+  <true/>
+  <key>signingStyle</key>
+  <string>automatic</string>
+  <key>destination</key>
+  <string>export</string>
+  <key>stripSwiftSymbols</key>
+  <true/>
+</dict>
 </plist>
