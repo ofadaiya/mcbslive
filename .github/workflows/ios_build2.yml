@@ -24,6 +24,10 @@ jobs:
           mkdir -p ~/certs
           echo "$P12_BASE64" | base64 --decode > ~/certs/cert.p12
           echo "$PROVISIONING_PROFILE_BASE64" | base64 --decode > ~/certs/profile.mobileprovision
+        env:
+          P12_BASE64: ${{ secrets.P12_BASE64 }}
+          PROVISIONING_PROFILE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
+
 
       - name: Debug secret lengths
         run: |
