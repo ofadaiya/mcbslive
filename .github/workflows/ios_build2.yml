@@ -25,14 +25,11 @@ jobs:
           echo "$P12_BASE64" | base64 --decode > ~/certs/cert.p12
           echo "$PROVISIONING_PROFILE_BASE64" | base64 --decode > ~/certs/profile.mobileprovision
 
-      - name: Debug certs directory
+      - name: Debug secret lengths
         run: |
-          echo "Cert dir:"
-          ls -lh ~/certs
-          echo "P12 file size:"
-          wc -c ~/certs/cert.p12
-          echo "Provisioning profile size:"
-          wc -c ~/certs/profile.mobileprovision
+          echo "Length of P12_BASE64: ${#P12_BASE64}"
+          echo "Length of PROVISIONING_PROFILE_BASE64: ${#PROVISIONING_PROFILE_BASE64}"
+
 
       - name: Debug certificate file
         run: |
