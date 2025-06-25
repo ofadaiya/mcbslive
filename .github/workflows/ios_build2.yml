@@ -25,9 +25,13 @@ jobs:
           echo "$P12_BASE64" | base64 --decode > ~/certs/cert.p12
           echo "$PROVISIONING_PROFILE_BASE64" | base64 --decode > ~/certs/profile.mobileprovision
 
-      - name: Check base64 decoded sizes
+      - name: Debug certs directory
         run: |
+          echo "Cert dir:"
+          ls -lh ~/certs
+          echo "P12 file size:"
           wc -c ~/certs/cert.p12
+          echo "Provisioning profile size:"
           wc -c ~/certs/profile.mobileprovision
 
       - name: Debug certificate file
