@@ -1,0 +1,64 @@
+name: Fastlane iOS App
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.32.4"
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      # ✅ Step B6: Install signing credentials
+      - name: Decode signing certificate and profile
+        run: |
+          mkdir -p ~/certs
+          echo "$P12_BASE64" | base64 --decode > ~/certs/cert.p12
+          echo "$PROVISIONING_PROFILE_BASE64" | base64 --decode > ~/certs/profile.mobileprovision
+
+      - name: Install certificate
+        run: |
+          security create-keychain -p "" build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p "" build.keychain
+          security import ~/certs/cert.p12 -k build.keychain -P "$P12_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k "" build.keychain
+
+      - name: Install provisioning profile
+        run: |
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp ~/certs/profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+
+      - name: Build iOS
+        run: |
+          flutter build ios --release --no-codesign
+
+      - name: Archive iOS App
+        run: |
+          cd ios
+          xcodebuild -workspace Runner.xcworkspace -scheme Runner -configuration Release -archivePath build/Runner.xcarchive archive -allowProvisioningUpdates
+
+      - name: Export IPA
+        run: |
+          xcodebuild -exportArchive -archivePath ios/build/Runner.xcarchive -exportOptionsPlist ios/ExportOptions.plist -exportPath ios/build/ipa
+
+      - name: Upload IPA as an artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-ipa
+          path: ios/build/ipa/Runner.ipa
+
+      - name: Upload .app as an artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-app
+          path: build/ios/iphoneos/Runner.app
