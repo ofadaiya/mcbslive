@@ -39,7 +39,7 @@ jobs:
         run: |
           ls -lh ~/certs
           file ~/certs/cert.p12
-          openssl pkcs12 -in ~/certs/cert.p12 -nokeys -info -passin pass:$P12_PASSWORD || true
+          openssl pkcs12 -in ~/certs/cert.p12 -nokeys -info -passin pass:"$P12_PASSWORD" || true
           
       - name: Install certificate
         run: |
