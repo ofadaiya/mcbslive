@@ -35,10 +35,16 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp ~/certs/profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
           cp ~/certs/ext_profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
-            - name: Debug secret lengths
-              run: |
-                echo "Length of P12_BASE64: ${#P12_BASE64}"
-                echo "Length of PROVISIONING_PROFILE_BASE64: ${#PROVISIONING_PROFILE_BASE64}"
+      
+      - name: Debug secret lengths
+        run: |
+          echo "Length of P12_BASE64: ${#P12_BASE64}"
+          echo "Length of PROVISIONING_PROFILE_BASE64: ${#PROVISIONING_PROFILE_BASE64}"
+          echo "Length of PROVISIONING_PROFILE_EXT_BASE64: ${#PROVISIONING_PROFILE_EXT_BASE64}"
+        env:
+          P12_BASE64: ${{ secrets.P12_BASE64 }}
+          PROVISIONING_PROFILE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
+          PROVISIONING_PROFILE_EXT_BASE64: ${{ secrets.PROVISIONING_PROFILE_EXT_BASE64 }}
 
 
       - name: Debug certificate file
