@@ -53,6 +53,9 @@ jobs:
           security unlock-keychain -p "" build.keychain
           security import ~/certs/cert.p12 -k build.keychain -P "$P12_PASSWORD" -T /usr/bin/codesign
           security set-key-partition-list -S apple-tool:,apple: -s -k "" build.keychain
+        env:
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+
 
       - name: Install provisioning profile
         run: |
