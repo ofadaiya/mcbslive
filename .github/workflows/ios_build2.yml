@@ -18,6 +18,11 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Debug cert.p12
+        run: |
+          ls -lh ~/certs
+          file ~/certs/cert.p12
+
       # ✅ Step B6: Install signing credentials
       - name: Decode signing certificate and profile
         run: |
