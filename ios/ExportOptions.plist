@@ -18,7 +18,7 @@
   <key>com.necasoft.mcbslive</key>
   <string>match AppStore com.necasoft.mcbslive</string>
   <key>com.necasoft.mcbslive.notification</key>
-  <string>com.necasoft.mcbslive.notification</string>
+  <string>mcbslivenoptification</string>
 </dict>
   <key>destination</key>
   <string>export</string>
