@@ -78,7 +78,12 @@ jobs:
       - name: Archive iOS App
         run: |
           cd ios
-          xcodebuild -workspace Runner.xcworkspace -scheme Runner -configuration Release -archivePath build/Runner.xcarchive archive -allowProvisioningUpdates
+           xcodebuild -workspace Runner.xcworkspace \
+            -scheme Runner \
+            -configuration Release \
+            -archivePath build/Runner.xcarchive \
+            CODE_SIGN_STYLE=Manual \
+            archive
 
       - name: Export IPA
         run: |
