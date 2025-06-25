@@ -1,0 +1,4 @@
+app_identifier([
+  "com.necasoft.mcbslive",                    # Main app
+  "com.necasoft.mcbslive.notification"        # OneSignal extension
+])
