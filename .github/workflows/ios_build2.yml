@@ -24,6 +24,12 @@ jobs:
           mkdir -p ~/certs
           echo "$P12_BASE64" | base64 --decode > ~/certs/cert.p12
           echo "$PROVISIONING_PROFILE_BASE64" | base64 --decode > ~/certs/profile.mobileprovision
+
+      - name: Check base64 decoded sizes
+        run: |
+          wc -c ~/certs/cert.p12
+          wc -c ~/certs/profile.mobileprovision
+
       - name: Debug certificate file
         run: |
           ls -lh ~/certs
