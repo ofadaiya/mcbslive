@@ -16,9 +16,9 @@
   <key>provisioningProfiles</key>
 <dict>
   <key>com.necasoft.mcbslive</key>
-  <string>Your Main Provisioning Profile Name</string>
+  <string>match AppStore com.necasoft.mcbslive</string>
   <key>com.necasoft.mcbslive.notification</key>
-  <string>Your Extension Provisioning Profile Name</string>
+  <string>com.necasoft.mcbslive.notification</string>
 </dict>
   <key>destination</key>
   <string>export</string>
