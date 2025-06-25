@@ -24,15 +24,21 @@ jobs:
           mkdir -p ~/certs
           echo "$P12_BASE64" | base64 --decode > ~/certs/cert.p12
           echo "$PROVISIONING_PROFILE_BASE64" | base64 --decode > ~/certs/profile.mobileprovision
+          echo "$PROVISIONING_PROFILE_EXT_BASE64" | base64 --decode > ~/certs/ext_profile.mobileprovision
         env:
           P12_BASE64: ${{ secrets.P12_BASE64 }}
           PROVISIONING_PROFILE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
+          PROVISIONING_PROFILE_EXT_BASE64: ${{ secrets.PROVISIONING_PROFILE_EXT_BASE64 }}
 
-
-      - name: Debug secret lengths
+      - name: Install provisioning profiles
         run: |
-          echo "Length of P12_BASE64: ${#P12_BASE64}"
-          echo "Length of PROVISIONING_PROFILE_BASE64: ${#PROVISIONING_PROFILE_BASE64}"
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp ~/certs/profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+          cp ~/certs/ext_profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+            - name: Debug secret lengths
+              run: |
+                echo "Length of P12_BASE64: ${#P12_BASE64}"
+                echo "Length of PROVISIONING_PROFILE_BASE64: ${#PROVISIONING_PROFILE_BASE64}"
 
 
       - name: Debug certificate file
@@ -57,10 +63,7 @@ jobs:
           P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
 
 
-      - name: Install provisioning profile
-        run: |
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp ~/certs/profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+      
 
       - name: Build iOS
         run: |
