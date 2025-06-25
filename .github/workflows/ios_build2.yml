@@ -24,7 +24,12 @@ jobs:
           mkdir -p ~/certs
           echo "$P12_BASE64" | base64 --decode > ~/certs/cert.p12
           echo "$PROVISIONING_PROFILE_BASE64" | base64 --decode > ~/certs/profile.mobileprovision
-
+      - name: Debug certificate file
+        run: |
+          ls -lh ~/certs
+          file ~/certs/cert.p12
+          openssl pkcs12 -in ~/certs/cert.p12 -nokeys -info -passin pass:$P12_PASSWORD || true
+          
       - name: Install certificate
         run: |
           security create-keychain -p "" build.keychain
