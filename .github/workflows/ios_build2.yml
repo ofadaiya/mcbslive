@@ -1,4 +1,4 @@
-name: Fastlane iOS App
+name: Fastlane 2 iOS App
 
 on:
   workflow_dispatch:
