@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleIdentifier</key>
-	<string>OneSignalNotificationServiceExtension</string>
+	<string>com.necasoft.mcbslive.OneSignalNotificationServiceExtension</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionPointIdentifier</key>
