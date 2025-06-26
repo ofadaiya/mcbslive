@@ -83,11 +83,14 @@ jobs:
             -configuration Release \
             -archivePath build/Runner.xcarchive \
             -allowProvisioningUpdates \
+            -destination "generic/platform=iOS" \
             CODE_SIGN_STYLE=Manual \
             DEVELOPMENT_TEAM=CW3CBV8SF4 \
-            PROVISIONING_PROFILE_SPECIFIER="match AppStore com.necasoft.mcbslive" \
+            "PROVISIONING_PROFILE_SPECIFIER=match AppStore com.necasoft.mcbslive" \
+            "PROVISIONING_PROFILE_SPECIFIER[OneSignalNotificationServiceExtension]=match AppStore com.necasoft.mcbslive.notification" \
             OTHER_CODE_SIGN_FLAGS="--keychain build.keychain" \
             archive
+
 
 
             
