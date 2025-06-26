@@ -75,7 +75,7 @@ jobs:
         run: |
           flutter build ios --release --no-codesign
 
-      - name: Archive iOS App
+      - name: Build iOS archive
         run: |
           cd ios
           xcodebuild -workspace Runner.xcworkspace \
@@ -83,8 +83,10 @@ jobs:
             -configuration Release \
             -archivePath build/Runner.xcarchive \
             -allowProvisioningUpdates \
-            -skipPackagePluginValidation \
             CODE_SIGN_STYLE=Manual \
+            DEVELOPMENT_TEAM=CW3CBV8SF4 \
+            PROVISIONING_PROFILE_SPECIFIER="mcbslivenotification" \
+            OTHER_CODE_SIGN_FLAGS="--keychain build.keychain" \
             archive
 
 
