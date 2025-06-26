@@ -84,6 +84,8 @@ jobs:
             -archivePath build/Runner.xcarchive \
             CODE_SIGN_STYLE=Manual \
             archive
+            env:
+            EXT_PROVISIONING_PROFILE_BASE64: ${{ secrets.EXT_PROVISIONING_PROFILE_BASE64 }}
 
       - name: Export IPA
         run: |
