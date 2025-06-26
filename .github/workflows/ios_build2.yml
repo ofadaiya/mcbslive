@@ -86,7 +86,7 @@ jobs:
             -archivePath build/Runner.xcarchive \
             -allowProvisioningUpdates \
             -destination "generic/platform=iOS" \
-            CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_STYLE=Automatic \
             CODE_SIGN_IDENTITY="Apple Distribution" \
             DEVELOPMENT_TEAM=CW3CBV8SF4 \
             PROVISIONING_PROFILE_SPECIFIER="match AppStore com.necasoft.mcbslive" \
