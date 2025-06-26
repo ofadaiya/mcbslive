@@ -79,31 +79,20 @@ jobs:
         run: |
           cd ios
       
-          # Archive main app
           xcodebuild -workspace Runner.xcworkspace \
             -scheme Runner \
             -configuration Release \
             -archivePath build/Runner.xcarchive \
             -allowProvisioningUpdates \
             -destination "generic/platform=iOS" \
-            CODE_SIGN_STYLE=Automatic \
+            CODE_SIGN_STYLE=Manual \
             CODE_SIGN_IDENTITY="Apple Distribution" \
             DEVELOPMENT_TEAM=CW3CBV8SF4 \
             PROVISIONING_PROFILE_SPECIFIER="match AppStore com.necasoft.mcbslive" \
             OTHER_CODE_SIGN_FLAGS="--keychain build.keychain" \
+            ENABLE_BITCODE=NO \
+            CODE_SIGNING_ALLOWED=NO \
             archive
-      
-          # Archive the OneSignal extension separately (if needed)
-          xcodebuild -workspace Runner.xcworkspace \
-            -scheme Runner \
-            -target OneSignalNotificationServiceExtension \
-            -configuration Release \
-            CODE_SIGN_STYLE=Automatic \
-            CODE_SIGN_IDENTITY="Apple Distribution" \
-            DEVELOPMENT_TEAM=CW3CBV8SF4 \
-            PROVISIONING_PROFILE_SPECIFIER="mcbslivenotification" \
-            OTHER_CODE_SIGN_FLAGS="--keychain build.keychain"
-
 
 
             
