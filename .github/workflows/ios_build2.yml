@@ -75,7 +75,7 @@ jobs:
         run: |
           flutter build ios --release --no-codesign
 
-      - name: Archive iOS App (skip OneSignal extension)
+      - name: Archive iOS App
         run: |
           cd ios
           xcodebuild -workspace Runner.xcworkspace \
@@ -84,9 +84,9 @@ jobs:
             -archivePath build/Runner.xcarchive \
             -allowProvisioningUpdates \
             -skipPackagePluginValidation \
-            -target Runner \
             CODE_SIGN_STYLE=Manual \
             archive
+
 
             
       - name: Export IPA
